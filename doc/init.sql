@@ -1,0 +1,3 @@
+create database stockclient;
+use stockclient;
+CREATE TABLE stock_request (ticker VARCHAR (100) DEFAULT NULL, quantity BIGINT DEFAULT NULL, price DOUBLE DEFAULT NULL, orderType VARCHAR (100) DEFAULT NULL, accountName VARCHAR (100) DEFAULT NULL, buyRequest INT DEFAULT NULL, userName VARCHAR (100) DEFAULT NULL, requestId VARCHAR (100) DEFAULT NULL, id BIGINT NOT NULL, PRIMARY KEY (id)) ENGINE=InnoDB CHARSET=utf8;

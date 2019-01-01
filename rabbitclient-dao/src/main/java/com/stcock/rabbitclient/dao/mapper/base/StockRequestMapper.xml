@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stcock.rabbitclient.dao.mapper.base.StockRequestMapper">
+
+	<insert id="insert" parameterType="com.stcock.rabbitclient.dao.entity.StockRequestEty">
+		insert into stock_request(
+			ticker,quantity,price,orderType,accountName,buyRequest,userName,requestId,id)
+		values (
+			#{ticker},#{quantity},#{price},#{orderType},#{accountName},#{buyRequest},#{userName},#{requestId},#{id}
+		)
+	</insert>
+
+	<select id="selectById" parameterType="long" resultType="com.stcock.rabbitclient.dao.entity.StockRequestEty">
+		select * from stock_request where id=#{value}
+	</select>
+
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM stock_request WHERE id=#{value}
+	</delete>
+
+	<select id="selectByEntity" parameterType="com.stcock.rabbitclient.dao.entity.StockRequestEty" resultType="com.stcock.rabbitclient.dao.entity.StockRequestEty">
+		SELECT * from stock_request
+		<where> 
+			<if test="ticker != null  and ticker != ''"> AND ticker=#{ticker}</if>
+			<if test="quantity != null "> AND quantity=#{quantity}</if>
+			<if test="price != null "> AND price=#{price}</if>
+			<if test="orderType != null  and orderType != ''"> AND orderType=#{orderType}</if>
+			<if test="accountName != null  and accountName != ''"> AND accountName=#{accountName}</if>
+			<if test="buyRequest != null "> AND buyRequest=#{buyRequest}</if>
+			<if test="userName != null  and userName != ''"> AND userName=#{userName}</if>
+			<if test="requestId != null  and requestId != ''"> AND requestId=#{requestId}</if>
+			<if test="id != null "> AND id=#{id}</if>
+		</where> 
+	</select>
+
+	<update id="updateById" parameterType="com.stcock.rabbitclient.dao.entity.StockRequestEty">
+		UPDATE stock_request
+		<set> 
+			<if test="ticker != null">ticker=#{ticker},</if>
+			<if test="quantity != null">quantity=#{quantity},</if>
+			<if test="price != null">price=#{price},</if>
+			<if test="orderType != null">orderType=#{orderType},</if>
+			<if test="accountName != null">accountName=#{accountName},</if>
+			<if test="buyRequest != null">buyRequest=#{buyRequest},</if>
+			<if test="userName != null">userName=#{userName},</if>
+			<if test="requestId != null">requestId=#{requestId},</if>
+		</set> 
+		WHERE id=#{id}
+	</update>
+
+	<select id="selectByLimit" resultType="com.stcock.rabbitclient.dao.entity.StockRequestEty">
+		SELECT * from stock_request
+		<where> 
+			<if test="ety.ticker != null  and ety.ticker != ''"> AND ticker=#{ety.ticker}</if>
+			<if test="ety.quantity != null "> AND quantity=#{ety.quantity}</if>
+			<if test="ety.price != null "> AND price=#{ety.price}</if>
+			<if test="ety.orderType != null  and ety.orderType != ''"> AND orderType=#{ety.orderType}</if>
+			<if test="ety.accountName != null  and ety.accountName != ''"> AND accountName=#{ety.accountName}</if>
+			<if test="ety.buyRequest != null "> AND buyRequest=#{ety.buyRequest}</if>
+			<if test="ety.userName != null  and ety.userName != ''"> AND userName=#{ety.userName}</if>
+			<if test="ety.requestId != null  and ety.requestId != ''"> AND requestId=#{ety.requestId}</if>
+			<if test="ety.id != null "> AND id=#{ety.id}</if>
+		</where> 
+		<if test="limit == null"> order by id desc</if>
+		<if test="limit != null">
+			<if test="limit.sort == null"> order by id desc</if>
+			<if test="limit.sort != null"> order by ${limit.sort} ${limit.dir}</if>
+			<if test="limit.limit != null"> limit ${limit.start}, ${limit.limit}</if>
+		</if>
+	</select>
+
+	<select id="selectLimitCount" resultType="long">
+		SELECT count(1) from stock_request
+		<where> 
+			<if test="ety.ticker != null  and ety.ticker != ''"> AND ticker=#{ety.ticker}</if>
+			<if test="ety.quantity != null "> AND quantity=#{ety.quantity}</if>
+			<if test="ety.price != null "> AND price=#{ety.price}</if>
+			<if test="ety.orderType != null  and ety.orderType != ''"> AND orderType=#{ety.orderType}</if>
+			<if test="ety.accountName != null  and ety.accountName != ''"> AND accountName=#{ety.accountName}</if>
+			<if test="ety.buyRequest != null "> AND buyRequest=#{ety.buyRequest}</if>
+			<if test="ety.userName != null  and ety.userName != ''"> AND userName=#{ety.userName}</if>
+			<if test="ety.requestId != null  and ety.requestId != ''"> AND requestId=#{ety.requestId}</if>
+			<if test="ety.id != null "> AND id=#{ety.id}</if>
+		</where> 
+	</select>
+</mapper>
